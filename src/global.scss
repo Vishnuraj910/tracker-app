@@ -24,3 +24,56 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+.heading {
+    font-size: 25px;
+    text-align: left;
+    font-weight: 700;
+    color: #2a2a2a;
+    white-space: nowrap;
+    display: flex;
+    font-style: bold;
+    padding-left: 50px;
+}
+
+.sub-text {
+    font-size: medium;
+    text-align: left;
+    font-weight: 300;
+    color: #2a2a2a;
+    display: flex;
+    
+}
+.item-pad{
+    padding: 10px 50px 10px 50px;
+}
+.item-mar{
+    margin: 20px 50px 20px 50px;
+}
+
+
+.text-label{
+    font-weight: 700;
+    text-align: left;
+}
+
+.text-input {
+    padding: 0 50px!important;
+    input{
+        padding: 15px 10px!important;
+        text-align: left!important;
+        background: #f7f7f7!important;
+        border-radius: 10px!important;
+    }
+}
+
+@font-face {
+    font-family: 'PTSans';
+    font-style: regular;
+    src: url('assets/fonts/PT_Sans/PTSans-Regular.ttf'); 
+  }
+
+  
+  * {
+    font-family: 'PTSans';
+  }

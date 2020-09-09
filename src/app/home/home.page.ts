@@ -7,6 +7,16 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
+  loginObj = {
+    username: null,
+    password: null,
+  };
+
   constructor() {}
+
+  login() {
+    console.log(this.loginObj.username);  
+    
+  }
 
 }
