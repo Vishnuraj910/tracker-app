@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -12,10 +13,13 @@ export class HomePage {
     password: null,
   };
 
-  constructor() {}
+  constructor(private authService: AuthService) {}
 
   login() {
     console.log(this.loginObj.username);  
+    this.authService.login(this.loginObj).then(function(){
+      
+    })
     
   }
 
