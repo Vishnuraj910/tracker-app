@@ -1,21 +1,9 @@
-<ion-content [fullscreen]="true" color="bright" class="background">
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Home</ion-title>
+  </ion-toolbar>
+</ion-header>
 
+<ion-content>
 
-  <div id="container">
-    <ion-img class="logo" src="assets/images/logo.png"></ion-img>
-
-    <ion-label class="heading">Welcome</ion-label>
-    <ion-label class="sub-text item-pad">Enter password or use Face ID to continue</ion-label>
-
-  
-    <ion-label class="sub-text text-label item-pad" position="stacked">Username</ion-label>
-    <ion-input  class="text-input" type="text" [(ngModel)]="loginObj.username"></ion-input>
-    
-   
-      <ion-label class="sub-text text-label item-pad" position="stacked">Password</ion-label>
-      <ion-input class="text-input" type="password" [(ngModel)]="loginObj.password"></ion-input>
-
-      <ion-button expand="block" class="item-mar" (click)="login()" color="tertiary"><b>Login</b></ion-button>
-    
-  </div>
 </ion-content>
