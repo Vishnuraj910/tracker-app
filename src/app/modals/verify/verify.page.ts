@@ -69,10 +69,10 @@ export class VerifyPage implements OnInit {
       disableBackup:true,  // optional | default: false
   })
   .then((result: any) => {
-    this.verifyItems.location.status = 1;
+    this.verifyItems.finger.status = 1;
   })
   .catch((error: any) => {
-    this.verifyItems.location.status = 2;
+    this.verifyItems.finger.status = 2;
   });
 
   }
