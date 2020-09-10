@@ -1,5 +1,8 @@
 {
   "name": "Tracker",
-  "integrations": {},
+  "integrations": {
+    "cordova": {},
+    "capacitor": {}
+  },
   "type": "angular"
 }

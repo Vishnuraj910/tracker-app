@@ -15,7 +15,7 @@ export class DataService {
         desc: "Some description goes here",
         status: 1,
         isActive: 1,
-        timeTaken: 0,
+        timeTaken: 80,
         timerRunning: false
       },
       {

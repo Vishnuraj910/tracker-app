@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../services/data.service';
-
+import { ModalController } from '@ionic/angular';
+import { VerifyPage } from '../modals/verify/verify.page';
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
@@ -12,7 +13,7 @@ export class HomePage implements OnInit {
   timerObj;
   currentTimerFlag = true;
 
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService, private modalController:ModalController) { }
 
   ngOnInit() {
     this.timerObj = new Date();
@@ -27,6 +28,14 @@ export class HomePage implements OnInit {
       this.projectList[index].timerRunning = false;
     }
     
+  }
+
+  async presentModal() {
+    const modal = await this.modalController.create({
+      component: VerifyPage,
+      cssClass: 'verify-class'
+    });
+    return await modal.present();
   }
 
   formatTime(cuurrentTimer){

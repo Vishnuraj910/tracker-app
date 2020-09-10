@@ -52,7 +52,16 @@
 .item-mar{
     margin: 20px 50px 20px 50px;
 }
+.text-black{
+  color: #2a2a2a;
+}
 
+.pad-15{
+  padding: 15px;
+}
+.pad-20-0{
+  padding: 20px 0;;
+}
 
 .text-label{
     font-weight: 400;
@@ -125,3 +134,13 @@
     }
 
 }
+
+
+.rotate {
+  -webkit-animation:spin 2s linear infinite;
+  -moz-animation:spin 2s linear infinite;
+  animation:spin 2s linear infinite;
+}
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }

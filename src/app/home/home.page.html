@@ -21,7 +21,8 @@
       <ion-row>
         <ion-col class="sub-text" size="9">{{project.desc}}</ion-col>
         <ion-col size="3">
-          <div class="btn-ctr" (click)="startProject(i)"><img [src]="project.timerRunning ? 'assets/images/001-stop-player-button.png': 'assets/images/001-power-button.png'" />
+          <div class="btn-ctr" (click)="presentModal(i)"><img [src]="project.timerRunning ? 'assets/images/001-stop-player-button.png': 'assets/images/001-power-button.png'" />
+          <!-- <div class="btn-ctr" (click)="startProject(i)"><img [src]="project.timerRunning ? 'assets/images/001-stop-player-button.png': 'assets/images/001-power-button.png'" /> -->
             <ion-label class="text-cen">{{project.timerRunning ? 'Stop': 'Start'}}</ion-label>
           </div>
         </ion-col>

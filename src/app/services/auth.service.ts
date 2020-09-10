@@ -12,7 +12,7 @@ export class AuthService {
   login(creds): Promise <string> {
     return new Promise( (resolve, reject) => {
 
-      if(creds.username == "admin" && creds.password == "admin")
+      if(creds.username.toLowerCase() == "admin" && creds.password == "admin")
       {
         resolve();
       }

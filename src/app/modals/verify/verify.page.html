@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar class="my-header">
+    <ion-title>Check-in</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-label class="sub-text item-mar">Please complete following mandatory verifications for checking in</ion-label>
+<ion-card>
+  <ion-row >
+    <ion-col class="pad-15" size="2"><img src="assets/images/001-placeholder.png" /></ion-col>
+    <ion-col class="pad-20-0 text-black" size="8"> <ion-title>Location</ion-title></ion-col>
+    <ion-col [class]="(verifyItems.location.status == 0) ? 'rotate pad-15' : 'pad-15'" size="2"><img [src]="(verifyItems.location.status == 0) ? 'assets/images/001-loading.png' : (verifyItems.location.status == 1 ? 'assets/images/002-success.png' : 'assets/images/003-delete-button.png')" /></ion-col>
+  </ion-row>
+ 
+</ion-card>
+<ion-card *ngIf="hide"> <ion-row class="">
+  <ion-col class="pad-15" size="2"><img src="assets/images/selfie.png" /></ion-col>
+  <ion-col class="pad-20-0 text-black" size="8"> <ion-title>Selfie</ion-title></ion-col>
+  <ion-col [class]="(verifyItems.selfie.status == 0) ? 'rotate pad-15' : 'pad-15'" size="2"><img [src]="(verifyItems.selfie.status == 0) ? 'assets/images/001-loading.png' : (verifyItems.selfie.status == 1 ? 'assets/images/002-success.png' : 'assets/images/003-delete-button.png')"  /></ion-col>
+</ion-row>
+</ion-card>
+<ion-card (click)="fingerPrintAuth()">
+  <ion-row class="">
+    <ion-col class="pad-15" size="2"><img src="assets/images/003-fingerprint.png" /></ion-col>
+    <ion-col class="pad-20-0 text-black" size="8"> <ion-title>Fingerprint</ion-title></ion-col>
+    <ion-col [class]="(verifyItems.finger.status == 0) ? 'rotate pad-15' : 'pad-15'" size="2"><img [src]="(verifyItems.finger.status == 0) ? 'assets/images/001-loading.png' : (verifyItems.finger.status == 1 ? 'assets/images/002-success.png' : 'assets/images/003-delete-button.png')"  /></ion-col>
+  </ion-row>
+</ion-card>
+<ion-card>
+  <ion-textarea placeholder="Enter remarks here."></ion-textarea>
+
+</ion-card>
+</ion-content>
+<ion-footer class="ion-no-border">
+  <ion-toolbar>
+    <ion-button [disabled]="verifyItems.location.status != 1 || verifyItems.finger.status != 1" expand="block" class="item-mar" (click)="checkIn()" color="success"><b>Check-in</b></ion-button>
+
+  </ion-toolbar>
+</ion-footer>
