@@ -10,8 +10,8 @@ import { Router } from '@angular/router';
 export class LoginPage {
 
   loginObj = {
-    username: null,
-    password: null,
+    username: "admin",
+    password: "admin",
   };
 
   constructor(private authService: AuthService, private router: Router) {

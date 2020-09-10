@@ -25,6 +25,11 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
+
+ion-header.header-md ion-toolbar:first-child {
+  padding-top: 20px;
+}
+
 .heading {
     font-size: 25px;
     text-align: left;

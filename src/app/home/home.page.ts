@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../services/data.service';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import { VerifyPage } from '../modals/verify/verify.page';
 @Component({
   selector: 'app-home',
@@ -11,31 +11,54 @@ export class HomePage implements OnInit {
 
   projectList = [];
   timerObj;
-  currentTimerFlag = true;
 
-  constructor(private dataService: DataService, private modalController:ModalController) { }
+  constructor(private dataService: DataService, 
+    private modalController:ModalController,
+    private toastCtr: ToastController) { }
 
   ngOnInit() {
     this.timerObj = new Date();
     this.projectList = this.dataService.getList();
   }
 
-  startProject(index){
-    if(!this.projectList[index].timerRunning){
-      this.startTimer(index);
-    } else {
-      clearInterval(this.timerObj);
-      this.projectList[index].timerRunning = false;
-    }
+  async startProject(index){
+
+      if(!this.projectList[index].timerRunning){
+        const isAnyRunning = this.projectList.find(item => item.timerRunning);
+        console.log(isAnyRunning);
+        if(isAnyRunning) {
+          const toast = await this.toastCtr.create({
+                  message: '<b>'+isAnyRunning.title + '</b> is still active. Please stop it to start a new one',
+                  duration: 2000
+                });
+          toast.present();
+        } else {
+          this.presentModal(index);
+        }
+        
+      } else {
+        clearInterval(this.timerObj);
+        this.projectList[index].timerRunning = false;
+      }
+   
+     
     
   }
 
-  async presentModal() {
+  async presentModal(index) {
     const modal = await this.modalController.create({
       component: VerifyPage,
-      cssClass: 'verify-class'
+      cssClass: 'verify-class',
+      componentProps: {
+        'project': this.projectList[index]
+      }
     });
-    return await modal.present();
+    await modal.present();
+    const { data } = await modal.onWillDismiss();
+    console.log(data);
+    if(data) {
+      this.startTimer(index);
+    }
   }
 
   formatTime(cuurrentTimer){
