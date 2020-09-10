@@ -30,6 +30,13 @@ ion-header.header-md ion-toolbar:first-child {
   padding-top: 20px;
 }
 
+.demo-text{
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  color: rgba(255,200,200);
+}
+
 .heading {
     font-size: 25px;
     text-align: left;
