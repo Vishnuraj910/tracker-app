@@ -39,10 +39,12 @@
 .sub-text {
     font-size: medium;
     text-align: left;
-    font-weight: 300;
+    font-weight: 200;
     color: #2a2a2a;
-    display: flex;
-    
+    display: block;
+    a {
+        text-decoration-line: none;
+    }
 }
 .item-pad{
     padding: 10px 50px 10px 50px;
@@ -53,8 +55,17 @@
 
 
 .text-label{
-    font-weight: 700;
+    font-weight: 400;
     text-align: left;
+    font-size: 12px;
+}
+
+.text-cen{
+    text-align: center!important;
+}
+
+.dis-flex{
+    display: flex;
 }
 
 .text-input {
@@ -72,8 +83,45 @@
     font-style: regular;
     src: url('assets/fonts/PT_Sans/PTSans-Regular.ttf'); 
   }
+  @font-face {
+    font-family: 'FiraSans';
+    font-weight: 700;
+    src: url('assets/fonts/FiraSans/FiraSans-Bold.ttf'); 
+  }
+  @font-face {
+    font-family: 'FiraSans';
+    font-weight: 900;
+    src: url('assets/fonts/FiraSans/FiraSans-Black.ttf'); 
+  }
+  @font-face {
+    font-family: 'FiraSans';
+    font-weight: 200;
+    src: url('assets/fonts/FiraSans/FiraSans-Light.ttf'); 
+  }
+  @font-face {
+    font-family: 'FiraSans';
+    font-weight: 400;
+    src: url('assets/fonts/FiraSans/FiraSans-Medium.ttf'); 
+  }
+  @font-face {
+    font-family: 'FiraSans';
+    font-weight: 300;
+    src: url('assets/fonts/FiraSans/FiraSans-Regular.ttf'); 
+  }
 
   
   * {
-    font-family: 'PTSans';
+    font-family: 'FiraSans';
   }
+
+  .my-header{
+    --background: none;
+    background: url(/assets/images/design-rotated.png);
+    background-size: 30%;
+    background-repeat: no-repeat;
+    background-position: 100% 62%;
+    ion-title {
+        font-weight: 700;
+    }
+
+}

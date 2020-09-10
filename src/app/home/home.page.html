@@ -1,9 +1,38 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Home</ion-title>
+  <ion-toolbar class="my-header">
+    <ion-title>Projects</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+<ng-container *ngFor="let project of projectList; let i = index" >
+  <ion-card *ngIf="project.isActive">
+    <ion-card-header>
+      <ion-row>
+      <ion-col size="9"><ion-card-title>{{project.title}}</ion-card-title></ion-col>
+      <ion-col size="3" >  <div class="dis-flex"><ion-badge color="success">{{ formatTime(project.timeTaken)}}</ion-badge></div></ion-col>
+      </ion-row>
+
+      
+     
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-row>
+        <ion-col class="sub-text" size="9">{{project.desc}}</ion-col>
+        <ion-col size="3">
+          <div class="btn-ctr" (click)="startProject(i)"><img [src]="project.timerRunning ? 'assets/images/001-stop-player-button.png': 'assets/images/001-power-button.png'" />
+            <ion-label class="text-cen">{{project.timerRunning ? 'Stop': 'Start'}}</ion-label>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-card-subtitle>{{project.distance}}</ion-card-subtitle>
+    </ion-card-content>
+
+  </ion-card>
+</ng-container>
+
+
 
 </ion-content>

@@ -8,14 +8,14 @@
     <ion-label class="sub-text item-pad">Enter password or use Face ID to continue</ion-label>
 
   
-    <ion-label class="sub-text text-label item-pad" position="stacked">Username</ion-label>
+    <ion-label class="sub-text text-label item-pad" >Username</ion-label>
     <ion-input  class="text-input" type="text" [(ngModel)]="loginObj.username"></ion-input>
     
    
-      <ion-label class="sub-text text-label item-pad" position="stacked">Password</ion-label>
+      <ion-label class="sub-text text-label item-pad">Password</ion-label>
       <ion-input class="text-input" type="password" [(ngModel)]="loginObj.password"></ion-input>
 
       <ion-button expand="block" class="item-mar" (click)="login()" color="tertiary"><b>Login</b></ion-button>
-    
+      <ion-label class="sub-text item-pad text-cen">Don't have an account? <a href="mailto:vishnuraj910@gmail.com?subject=Register with Tracker App"><b> Sign-up </b></a></ion-label>
   </div>
 </ion-content>
