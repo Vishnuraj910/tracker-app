@@ -32,7 +32,7 @@ ion-header.header-md ion-toolbar:first-child {
 
 .demo-text{
   position: fixed;
-  bottom: 20px;
+  bottom: 50px;
   right: 20px;
   color: rgba(255,200,200);
 }
@@ -57,6 +57,9 @@ ion-header.header-md ion-toolbar:first-child {
     a {
         text-decoration-line: none;
     }
+}
+.f-right{
+  float: right;
 }
 .item-pad{
     padding: 10px 50px 10px 50px;

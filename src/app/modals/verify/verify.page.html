@@ -1,6 +1,11 @@
 <ion-header>
   <ion-toolbar class="my-header">
     <ion-title>Check-in</ion-title>
+    <ion-buttons slot="end">
+      <ion-button color="danger" (click)="dismiss()">
+        <ion-icon name="close-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -34,7 +39,7 @@
 </ion-content>
 <ion-footer class="ion-no-border">
   <ion-toolbar>
+   
     <ion-button [disabled]="verifyItems.location.status != 1 || verifyItems.finger.status != 1" expand="block" class="item-mar" (click)="checkIn()" color="success"><b>Check-in</b></ion-button>
-
   </ion-toolbar>
 </ion-footer>

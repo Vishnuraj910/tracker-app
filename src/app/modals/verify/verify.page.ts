@@ -68,17 +68,19 @@ export class VerifyPage implements OnInit {
     // }
 
   }
-  dismiss() {
+ 
+  dismiss(verfied = false) {
     // using the injected ModalController this page
     // can "dismiss" itself and optionally pass back data
     this.modalCtrl.dismiss({
       'dismissed': true,
-      'verifyItems': this.verifyItems
+      'verifyItems': this.verifyItems,
+      'verified': verfied
     });
   }
   async checkIn() {
     if (this.verifyItems.location.status == 1 && this.verifyItems.finger.status == 1) {
-      this.dismiss();
+      this.dismiss(true);
     } else {
       const toast = await this.toastCtr.create({
         message: 'Complete all the verifications to proceed',

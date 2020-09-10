@@ -32,7 +32,24 @@ export class DataService {
         distance: "35 Kms",
         desc: "Some description goes here",
         status: 1,
-        isActive: 0,
+        isActive: 1,
+        timeTaken: 0
+      },
+      {
+        title: "Kalyan Jewellers",
+        distance: "10 Kms",
+        desc: "Some description goes here",
+        status: 2,
+        isActive: 1,
+        timeTaken: 88400,
+        timerRunning: false
+      },
+      {
+        title: "Lulu Hyper Market",
+        distance: "7.5 Kms",
+        desc: "Some description goes here",
+        status: 2,
+        isActive: 50,
         timeTaken: 0
       }
 

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../services/data.service';
-import { ModalController, ToastController } from '@ionic/angular';
+import { ModalController, ToastController, AlertController } from '@ionic/angular';
 import { VerifyPage } from '../modals/verify/verify.page';
+import {Location} from '@angular/common';
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
@@ -11,10 +12,13 @@ export class HomePage implements OnInit {
 
   projectList = [];
   timerObj;
+  selectedTab = 1;
 
   constructor(private dataService: DataService, 
     private modalController:ModalController,
-    private toastCtr: ToastController) { }
+    private toastCtr: ToastController,
+    private location: Location,
+    public alertController: AlertController) { }
 
   ngOnInit() {
     this.timerObj = new Date();
@@ -23,7 +27,7 @@ export class HomePage implements OnInit {
 
   async startProject(index){
 
-      if(!this.projectList[index].timerRunning){
+      if(this.projectList[index].status == 1  && !this.projectList[index].timerRunning){
         const isAnyRunning = this.projectList.find(item => item.timerRunning);
         console.log(isAnyRunning);
         if(isAnyRunning) {
@@ -56,13 +60,19 @@ export class HomePage implements OnInit {
     await modal.present();
     const { data } = await modal.onWillDismiss();
     console.log(data);
-    if(data) {
+    if(data.verified) {
       this.startTimer(index);
     }
   }
 
   formatTime(cuurrentTimer){
-    return new Date(cuurrentTimer * 1000).toISOString().substr(11, 8)
+    if(cuurrentTimer >= 86400)
+    {
+      return new Date(87000 * 1000).toISOString().substr(8, 2)+':' + new Date(cuurrentTimer * 1000).toISOString().substr(11, 8)
+    } else {
+      return new Date(cuurrentTimer * 1000).toISOString().substr(11, 8)
+    }
+    
   }
 
 
@@ -73,6 +83,42 @@ export class HomePage implements OnInit {
       self.projectList[index].timeTaken = Number(self.projectList[index].timeTaken) + 1
     },1000)
 
+  }
+
+  tabSelected(selectedTab){
+    this.selectedTab = selectedTab;
+    if (selectedTab == 1){
+      
+
+    } else {
+
+    }
+
+  }
+
+  async logout(){
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Logout!',
+      message: 'Are you sure?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+          }
+        }, {
+          text: 'Logout',
+          handler: () => {
+            this.location.back();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+    
   }
 
   // startTimer(timeObj){
