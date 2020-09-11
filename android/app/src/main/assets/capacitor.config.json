@@ -1,6 +1,6 @@
 {
   "appId": "com.sysdxb.jobtracker",
-  "appName": "JobTracker",
+  "appName": "Job Tracker",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",
