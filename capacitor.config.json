@@ -1,6 +1,6 @@
 {
-  "appId": "io.ionic.starter",
-  "appName": "Tracker",
+  "appId": "com.sysdxb.jobtracker",
+  "appName": "Job Tracker",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",

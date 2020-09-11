@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
 import { DataService } from '../services/data.service';
-import { ModalController, ToastController, AlertController } from '@ionic/angular';
 import { VerifyPage } from '../modals/verify/verify.page';
-import {Location} from '@angular/common';
+import { OnInit, Component } from '@angular/core';
+import { ModalController, ToastController, AlertController } from '@ionic/angular';
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',

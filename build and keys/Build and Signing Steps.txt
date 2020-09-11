@@ -1,0 +1,4 @@
+keytool -genkey -v -keystore VISHNU.keystore -alias Vishnu -keyalg RSA -keysize 2048 -validity 10000
+
+
+jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore VISHNU.keystore "app-release.apk" Vishnu

@@ -1,5 +1,5 @@
 {
-  "name": "Tracker",
+  "name": "JobTracker",
   "integrations": {
     "cordova": {},
     "capacitor": {}
