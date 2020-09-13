@@ -11,3 +11,8 @@ ion-label{
     text-align: center;
     font-size: 18px;
 }
+ion-content ion-title{
+    text-align: left!important;
+    position: initial!important;
+    padding-inline-start: 0;
+}

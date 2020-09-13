@@ -16,3 +16,22 @@ ion-badge{
     margin: 0 auto;
     font-size: 16px;
 }
+
+ion-card-header.ios, ion-card-content.ios {
+    padding-inline-start: 10px;
+    padding-inline-end: 10px;
+}
+ion-badge{
+    font-size: 14px;
+}
+ion-card-title.ios{
+    font-size: 23px;;
+}
+ion-tab-bar.ios {
+    padding-bottom: 0;
+    --border: none;
+    border: none;
+}
+ion-tabs{
+    position: initial;
+}

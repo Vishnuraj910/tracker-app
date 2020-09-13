@@ -154,3 +154,9 @@ ion-header.header-md ion-toolbar:first-child {
 @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
 @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
 @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
+
+
+.bar-footer {
+  margin-bottom: constant(safe-area-inset-bottom);
+}
