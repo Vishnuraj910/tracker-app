@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { LoadingController } from '@ionic/angular';
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
 
 @Component({
   selector: 'login',
@@ -10,22 +12,36 @@ import { Router } from '@angular/router';
 export class LoginPage {
 
   loginObj = {
-    username: "admin",
-    password: "admin",
+    username: "16536",
+    password: "16536",
   };
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService, private router: Router, public loadingController: LoadingController,
+    private nativeStorage: NativeStorage) {
     
   }
   
 
-  login() {
+  async login() {
     console.log(this.loginObj.username);  
     var self = this;
-    this.authService.login(this.loginObj).then(function(){
+    const loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Loging In',
+      duration: 20000
+    });
+    await loading.present();
+
+    this.authService.login(this.loginObj).then(async function(userData){
+      self.nativeStorage.setItem('userData', userData)
+  .then(
+    () => console.log('Stored item!'),
+    error => console.error('Error storing item', error)
+  );
       self.router.navigate(['/home'])
-      
-    }, function(){
+      await loading.dismiss();
+    }, async function(){
+      await loading.dismiss();
       alert("Please check your credentials");
     })
     
