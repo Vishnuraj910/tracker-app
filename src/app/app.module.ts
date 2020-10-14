@@ -13,6 +13,7 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import { PinDialog } from '@ionic-native/pin-dialog/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,6 +26,7 @@ import { NativeStorage } from '@ionic-native/native-storage/ngx';
     FingerprintAIO,
     UniqueDeviceID,
     NativeStorage,
+    PinDialog,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
