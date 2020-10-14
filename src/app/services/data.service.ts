@@ -88,11 +88,11 @@ export class DataService {
       return 0;
     }
     else {
-      let radlat1 = Math.PI * lat1 / 180;
-      let radlat2 = Math.PI * lat2 / 180;
-      let theta = lon1 - lon2;
-      let radtheta = Math.PI * theta / 180;
-      let dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+      const Latitude1 = Math.PI * lat1 / 180;
+      const Latitude2 = Math.PI * lat2 / 180;
+      const theta = lon1 - lon2;
+      const radiusTheta = Math.PI * theta / 180;
+      let dist = Math.sin(Latitude1) * Math.sin(Latitude2) + Math.cos(Latitude1) * Math.cos(Latitude2) * Math.cos(radiusTheta);
       if (dist > 1) {
         dist = 1;
       }

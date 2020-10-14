@@ -10,7 +10,9 @@
 </ion-header>
 
 <ion-content has-footer>
+  <ion-progress-bar *ngIf="projectList.length === 0" type="indeterminate"></ion-progress-bar>
 <ng-container *ngFor="let project of projectList; let i = index" >
+  
   <ion-card *ngIf="project.isActive && project.status == selectedTab">
     <ion-card-header>
       <ion-row>
