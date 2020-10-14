@@ -3,6 +3,8 @@ import { VerifyPage } from '../modals/verify/verify.page';
 import { OnInit, Component } from '@angular/core';
 import { ModalController, ToastController, AlertController } from '@ionic/angular';
 import { Location } from '@angular/common';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
@@ -13,16 +15,47 @@ export class HomePage implements OnInit {
   projectList = [];
   timerObj;
   selectedTab = 1;
-
+  verifyItems = {
+    location: {
+      status: 0,
+      data: null
+    }
+  };
   constructor(private dataService: DataService,
               private modalController: ModalController,
               private toastCtr: ToastController,
               private location: Location,
+              private geolocation: Geolocation,
               public alertController: AlertController) { }
 
   ngOnInit() {
     this.timerObj = new Date();
-    this.projectList = this.dataService.getList();
+    // this.projectList = this.dataService.getList();
+    this.geolocation.getCurrentPosition({timeout: 5000, enableHighAccuracy: true}).then((resp) => {
+      this.dataService.getProjects().then((data) => {
+        this.projectList = data;
+        this.projectList.forEach((item) => {
+          item.status =  1;
+          item.isActive = 1,
+          item.timeTaken = 0;
+          item.distance = this.dataService.findDistance(resp.coords.altitude, resp.coords.longitude, item.Latitude, item.Longitude, 'K');
+          item.timerRunning = false;
+        });
+      }, async () => {
+        const toast = await this.toastCtr.create({
+          message: 'Unable to fetch projects!',
+          duration: 2000
+        });
+        toast.present();
+      });
+    }).catch(async (error) => {
+      const toast = await this.toastCtr.create({
+        message: 'Unable to fetch Location information. Please try again.',
+        duration: 2000
+      });
+      toast.present();
+      console.log('Error getting location', error);
+    }); 
   }
 
   async startProject(index) {
@@ -43,6 +76,7 @@ export class HomePage implements OnInit {
     } else {
       clearInterval(this.timerObj);
       this.projectList[index].timerRunning = false;
+      this.projectList[index].endTime = Date.now();
     }
 
 
@@ -78,6 +112,7 @@ export class HomePage implements OnInit {
   startTimer(index) {
     const self = this;
     this.projectList[index].timerRunning = true;
+    this.projectList[index].startTime ? this.projectList[index].startTime : Date.now();
     this.timerObj = setInterval(() => {
       self.projectList[index].timeTaken = Number(self.projectList[index].timeTaken) + 1;
     }, 1000);
@@ -86,12 +121,37 @@ export class HomePage implements OnInit {
 
   tabSelected(selectedTab) {
     this.selectedTab = selectedTab;
-    if (selectedTab == 1) {
+    if (selectedTab === 1) {
 
 
     } else {
 
     }
+
+  }
+
+  getLocation() {
+    // if (this.verifyItems.location.status != 1){
+    this.geolocation.getCurrentPosition({timeout: 5000, enableHighAccuracy: true}).then((resp) => {
+      console.log(resp);
+      this.verifyItems.location.status = 1;
+      this.verifyItems.location.data = resp;
+    }).catch(async (error) => {
+      this.verifyItems.location.status = 2;
+      const toast = await this.toastCtr.create({
+        message: 'Unable to fetch Location information. Please try again.',
+        duration: 2000
+      });
+      toast.present();
+      console.log('Error getting location', error);
+    });
+    // } else {
+    //   this.toast = this.toastCtr.create({
+    //     message: 'Location already captured.',
+    //     duration: 2000
+    //   });
+    //   this.toast.present();
+    // }
 
   }
 

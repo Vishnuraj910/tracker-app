@@ -1,11 +1,36 @@
+import { AuthService } from './auth.service';
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
+import { Platform } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
 
-  constructor() { }
+  baseUrl = 'http://86.96.196.61/tms/api/';
+  defaultEmployeeCode = '16536';
+
+  constructor(private http: HttpClient, private uniqueDeviceID: UniqueDeviceID,
+              public platform: Platform, private authService: AuthService) {
+    console.log('Called Data Service');
+  }
+
+  getProjects(): Promise <any> {
+    return new Promise( (resolve, reject) => {
+      const userObj = this.authService.getUserDetails();
+      console.log(userObj);
+
+      this.http.get(`${this.baseUrl}Actitvity/Get?UserID=${userObj ? userObj.EmployeeCode : this.defaultEmployeeCode}`)
+        .subscribe((data) => {
+          console.log(data);
+          resolve(data);
+        }, (err) => {
+          reject();
+        });
+  });
+}
 
   getList() {
     const list = [
@@ -57,5 +82,26 @@ export class DataService {
 
     return list;
 
+  }
+  findDistance(lat1, lon1, lat2, lon2, unit) {
+    if ((lat1 === lat2) && (lon1 === lon2)) {
+      return 0;
+    }
+    else {
+      let radlat1 = Math.PI * lat1 / 180;
+      let radlat2 = Math.PI * lat2 / 180;
+      let theta = lon1 - lon2;
+      let radtheta = Math.PI * theta / 180;
+      let dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+      if (dist > 1) {
+        dist = 1;
+      }
+      dist = Math.acos(dist);
+      dist = dist * 180 / Math.PI;
+      dist = dist * 60 * 1.1515;
+      if (unit === 'K') { dist = dist * 1.609344; }
+      if (unit === 'N') { dist = dist * 0.8684; }
+      return dist;
+    }
   }
 }

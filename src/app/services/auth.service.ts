@@ -10,8 +10,13 @@ export class AuthService {
 
   baseUrl = 'http://86.96.196.61/tms/api/';
   defaultId = '112442';
+  userDetails;
   constructor(private http: HttpClient, private uniqueDeviceID: UniqueDeviceID, public platform: Platform) {
     console.log('Called Auth Service');
+  }
+
+  getUserDetails(){
+    return this.userDetails;
   }
 
   login(creds): Promise <any> {
@@ -30,6 +35,7 @@ export class AuthService {
         {}, {headers})
         .subscribe((data) => {
           console.log(data);
+          this.userDetails = data;
           resolve(data);
         }, (err) => {
           reject();

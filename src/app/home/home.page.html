@@ -14,7 +14,7 @@
   <ion-card *ngIf="project.isActive && project.status == selectedTab">
     <ion-card-header>
       <ion-row>
-      <ion-col size="{{project.timeTaken >= 86400 ? '8' : '9'}}"><ion-card-title>{{project.title}}</ion-card-title></ion-col>
+      <ion-col size="{{project.timeTaken >= 86400 ? '8' : '9'}}"><ion-card-title>{{project.ActivityCode}}</ion-card-title></ion-col>
       <ion-col size="{{project.timeTaken >= 86400 ? '4' : '3'}}" >  <div class="dis-flex {{project.timeTaken >= 86400 ? 'f-right' : ''}}"><ion-badge color="success">{{ formatTime(project.timeTaken)}}</ion-badge></div></ion-col>
       </ion-row>
 
@@ -24,7 +24,7 @@
 
     <ion-card-content>
       <ion-row>
-        <ion-col class="sub-text" size="9">{{project.desc}}</ion-col>
+        <ion-col class="sub-text" size="9">{{project.ActivityName}}</ion-col>
         <ion-col size="3">
           <!-- <div class="btn-ctr" (click)="presentModal(i)"><img [src]="project.timerRunning ? 'assets/images/001-stop-player-button.png': 'assets/images/001-power-button.png'" /> -->
           <div class="btn-ctr" (click)="startProject(i)"><img [src]="project.status == 2 ? 'assets/images/002-success.png' : project.timerRunning ? 'assets/images/001-stop-player-button.png': 'assets/images/001-power-button.png'" />
@@ -33,7 +33,7 @@
         </ion-col>
       </ion-row>
 
-      <ion-card-subtitle>{{project.distance}}</ion-card-subtitle>
+      <ion-card-subtitle>{{project.distance | number : '1.2-2'}} Kms</ion-card-subtitle>
     </ion-card-content>
 
   </ion-card>

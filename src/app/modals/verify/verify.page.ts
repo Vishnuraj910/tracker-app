@@ -27,14 +27,14 @@ export class VerifyPage implements OnInit {
       data: null
     },
     remarks: null
-  }
+  };
 
 
   constructor(private geolocation: Geolocation,
-    private modalCtrl: ModalController,
-    private faio: FingerprintAIO,
-    private toastCtr: ToastController,
-    public platform: Platform) { }
+              private modalCtrl: ModalController,
+              private faio: FingerprintAIO,
+              private toastCtr: ToastController,
+              public platform: Platform) { }
 
   ngOnInit() {
 
@@ -68,14 +68,14 @@ export class VerifyPage implements OnInit {
     // }
 
   }
- 
-  dismiss(verfied = false) {
+
+  dismiss(verify = false) {
     // using the injected ModalController this page
     // can "dismiss" itself and optionally pass back data
     this.modalCtrl.dismiss({
-      'dismissed': true,
-      'verifyItems': this.verifyItems,
-      'verified': verfied
+      dismissed: true,
+      verifyItems: this.verifyItems,
+      verified: verify
     });
   }
   async checkIn() {
@@ -88,14 +88,14 @@ export class VerifyPage implements OnInit {
       });
       toast.present();
     }
-    //this.dismiss();
+    // this.dismiss();
 
   }
   fingerPrintAuth() {
     if (this.platform.platforms().indexOf('mobileweb') != -1)
     {
       this.verifyItems.finger.status = 1;
-        this.project.bioVerified = 1;
+      this.project.bioVerified = 1;
     } else {
       this.faio.show({
         title: 'Authenticate with Finger or Face', // (Android Only) | optional | Default: "<APP_NAME> Biometric Sign On"
@@ -117,10 +117,10 @@ export class VerifyPage implements OnInit {
           });
           toast.present();
         });
-  
+
     }
 
-    
+
   }
 
 }
