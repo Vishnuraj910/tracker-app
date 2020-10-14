@@ -9,7 +9,7 @@ import { Platform } from '@ionic/angular';
 export class AuthService {
 
   baseUrl = 'http://86.96.196.61/tms/api/';
-  defaultId = '112444';
+  defaultId = '112442';
   constructor(private http: HttpClient, private uniqueDeviceID: UniqueDeviceID, public platform: Platform) {
     console.log('Called Auth Service');
   }
@@ -25,7 +25,8 @@ export class AuthService {
     {
       if (creds.username.trim().length && creds.password.trim().length)
       {
-        this.http.post(`${this.baseUrl}Auth?UserID=${creds.username.trim()}&Password=${creds.username.trim()}&DeviceID=${this.defaultId}`,
+        this.http.post(`${this.baseUrl}Auth/Authenticate?UserID=${creds.username.trim()}
+        &Password=${creds.username.trim()}&DeviceID=${this.defaultId}`,
         {}, {headers})
         .subscribe((data) => {
           console.log(data);
@@ -41,7 +42,8 @@ export class AuthService {
       .then((uuid: any) => {
         if (creds.username.trim().length && creds.password.trim().length)
         {
-          this.http.post(`${this.baseUrl}Auth?UserID=${creds.username.trim()}&Password=${creds.username.trim()}&DeviceID=${uuid}`, {})
+          this.http.post(`${this.baseUrl}Auth/Authenticate?UserID=${creds.username.trim()}
+          &Password=${creds.username.trim()}&DeviceID=${uuid}`, {})
           .subscribe((data) => {
             console.log(data);
             resolve(data);
@@ -65,7 +67,8 @@ export class AuthService {
     {
       if (creds.EmployeeCode.trim().length && otp.trim().length)
       {
-        this.http.post(`${this.baseUrl}Auth?UserID=${creds.EmployeeCode.trim()}&DeviceID=${this.defaultId}&DeviceOTP=${otp.trim()}`,
+        this.http.post(`${this.baseUrl}Auth/Activate?UserID=${creds.EmployeeCode.trim()}
+        &DeviceID=${this.defaultId}&DeviceOTP=${otp.trim()}`,
         {}, {headers})
         .subscribe((data) => {
           console.log(data);
@@ -81,7 +84,8 @@ export class AuthService {
       .then((uuid: any) => {
         if (creds.EmployeeCode.trim().length && otp.trim().length)
         {
-          this.http.post(`${this.baseUrl}Auth?UserID=${creds.EmployeeCode.trim()}&DeviceOTP=${otp.trim()}&DeviceID=${uuid}`, {})
+          this.http.post(`${this.baseUrl}Auth/Activate?UserID=${creds.EmployeeCode.trim()}
+          &DeviceOTP=${otp.trim()}&DeviceID=${uuid}`, {})
           .subscribe((data) => {
             console.log(data);
             resolve(data);
