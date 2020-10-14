@@ -17,12 +17,12 @@ export class DataService {
     console.log('Called Data Service');
   }
 
-  getProjects(): Promise <any> {
+  getProjects(coordinates): Promise <any> {
     return new Promise( (resolve, reject) => {
       const userObj = this.authService.getUserDetails();
       console.log(userObj);
 
-      this.http.get(`${this.baseUrl}Actitvity/Get?UserID=${userObj ? userObj.EmployeeCode : this.defaultEmployeeCode}`)
+      this.http.get(`${this.baseUrl}Activity/Get?UserID=${userObj ? userObj.EmployeeCode : this.defaultEmployeeCode}${(coordinates ? '&Latitude=' + coordinates.latitude + '&Longitude=' + coordinates.longitude : '')}`)
         .subscribe((data) => {
           console.log(data);
           resolve(data);

@@ -32,7 +32,7 @@ export class HomePage implements OnInit {
     this.timerObj = new Date();
     // this.projectList = this.dataService.getList();
     this.geolocation.getCurrentPosition({timeout: 5000, enableHighAccuracy: true}).then((resp) => {
-      this.dataService.getProjects().then((data) => {
+      this.dataService.getProjects(resp.coords).then((data) => {
         this.projectList = data;
         this.projectList.forEach((item) => {
           item.status =  1;
@@ -41,6 +41,7 @@ export class HomePage implements OnInit {
           item.distance = this.dataService.findDistance(resp.coords.altitude, resp.coords.longitude, item.Latitude, item.Longitude, 'K');
           item.timerRunning = false;
         });
+        this.projectList.sort((a, b) => (a.distance > b.distance) ? 1 : ((b.distance > a.distance) ? -1 : 0));
       }, async () => {
         const toast = await this.toastCtr.create({
           message: 'Unable to fetch projects!',
@@ -50,7 +51,7 @@ export class HomePage implements OnInit {
       });
     }).catch(async (error) => {
       const toast = await this.toastCtr.create({
-        message: 'Unable to fetch Location information. Please try again.',
+        message: 'Unable to fetch Location information. Loading all available projects',
         duration: 2000
       });
       toast.present();
