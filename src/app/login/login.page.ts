@@ -38,6 +38,7 @@ export class LoginPage {
     this.authService.login(this.loginObj).then(
       async (userData) => {
         loading.dismiss();
+        if (userData.DeviceOTP.length > 0) {
         const alertDialog = await this.alertController.create({
           cssClass: 'my-custom-class',
           header: 'Enter OTP',
@@ -62,22 +63,26 @@ export class LoginPage {
               text: 'OK',
               handler: (object) => {
                 console.log(object);
-                if (object.otp === userData.DeviceOTP) {
+
+                this.authService.verify(userData, object.otp).then(() => {
                   self.nativeStorage.setItem('userData', userData).then(
                     () => console.log('Stored item!'),
                     (error) => console.error('Error storing item', error)
                   );
                   self.router.navigate(['/home']);
-                } else {
+                }, () => {
                   alert('Unable to verify OTP');
                   return false;
-                }
+                });
               },
             },
           ],
         });
 
         await alertDialog.present();
+      } else {
+        self.router.navigate(['/home']);
+      }
       },
       async () => {
         await loading.dismiss();
