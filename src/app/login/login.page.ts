@@ -26,7 +26,7 @@ export class LoginPage {
   ) {}
 
   async login() {
-    console.log(this.loginObj.username);
+    // console.log(this.loginObj.username);
     const self = this;
     const loading = await this.loadingController.create({
       cssClass: 'my-custom-class',
