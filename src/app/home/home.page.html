@@ -10,13 +10,15 @@
 </ion-header>
 
 <ion-content has-footer>
-  <ion-progress-bar *ngIf="projectList.length === 0" type="indeterminate"></ion-progress-bar>
+  <ion-progress-bar *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
+  <ion-searchbar showCancelButton="focus" animated [(ngModel)]="searchString" (search)="searchList($event)" autocorrect="off"></ion-searchbar>
+
 <ng-container *ngFor="let project of projectList; let i = index" >
   
   <ion-card *ngIf="project.isActive && project.status == selectedTab">
     <ion-card-header>
       <ion-row>
-      <ion-col size="{{project.timeTaken >= 86400 ? '8' : '9'}}"><ion-card-title>{{project.ActivityCode}}</ion-card-title></ion-col>
+      <ion-col size="{{project.timeTaken >= 86400 ? '8' : '9'}}"><ion-card-title>{{project.ActivityTitle}}</ion-card-title></ion-col>
       <ion-col size="{{project.timeTaken >= 86400 ? '4' : '3'}}" >  <div class="dis-flex {{project.timeTaken >= 86400 ? 'f-right' : ''}}"><ion-badge color="success">{{ formatTime(project.timeTaken)}}</ion-badge></div></ion-col>
       </ion-row>
 

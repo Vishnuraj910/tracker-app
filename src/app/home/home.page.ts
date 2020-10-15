@@ -21,6 +21,8 @@ export class HomePage implements OnInit {
       data: null
     }
   };
+  searchString = '';
+  isLoading = true;
   constructor(private dataService: DataService,
               private modalController: ModalController,
               private toastCtr: ToastController,
@@ -30,9 +32,10 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
     this.timerObj = new Date();
+    this.isLoading = true;
     // this.projectList = this.dataService.getList();
     this.geolocation.getCurrentPosition({timeout: 5000, enableHighAccuracy: true}).then((resp) => {
-      this.dataService.getProjects(resp.coords).then((data) => {
+      this.dataService.getProjects(resp.coords, this.searchString).then((data) => {
         this.projectList = data;
         this.projectList.forEach((item) => {
           item.status =  1;
@@ -42,12 +45,14 @@ export class HomePage implements OnInit {
           item.timerRunning = false;
         });
         this.projectList.sort((a, b) => (a.distance > b.distance) ? 1 : ((b.distance > a.distance) ? -1 : 0));
+        this.isLoading = false;
       }, async () => {
         const toast = await this.toastCtr.create({
           message: 'Unable to fetch projects!',
           duration: 2000
         });
         toast.present();
+        this.isLoading = false;
       });
     }).catch(async (error) => {
       const toast = await this.toastCtr.create({
@@ -55,8 +60,9 @@ export class HomePage implements OnInit {
         duration: 2000
       });
       toast.present();
+      this.isLoading = false;
       console.log('Error getting location', error);
-    }); 
+    });
   }
 
   async startProject(index) {
@@ -179,6 +185,10 @@ export class HomePage implements OnInit {
 
     await alert.present();
 
+  }
+
+  searchList(evnt){
+    this.ngOnInit();
   }
 
   // startTimer(timeObj){
