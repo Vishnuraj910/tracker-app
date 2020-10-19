@@ -11,6 +11,11 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['login.page.scss'],
 })
 export class LoginPage {
+
+  // loginObj = {
+  //   username: '',
+  //   password: '',
+  // };
   loginObj = {
     username: '16536',
     password: '16536',

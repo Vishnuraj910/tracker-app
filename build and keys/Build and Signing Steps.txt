@@ -1,4 +1,17 @@
-keytool -genkey -v -keystore VISHNU.keystore -alias Vishnu -keyalg RSA -keysize 2048 -validity 10000
+Job tracker
 
 
-jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore VISHNU.keystore "app-release.apk" Vishnu
+Generate Certificate:
+
+keytool -genkey -v -keystore VishnuMac.keystore -alias Vishnu -keyalg RSA -keysize 2048 -validity 10000
+
+Create Build for release:
+
+Android Studio -> Build -> Generate Signed Bundle / APK
+
+Sign with Certificate: 
+
+cd /Users/vishnurajrajagopal/Vishnu/Development/Ionic/tracker-app/android/app/release
+                                                                           
+jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore VishnuMac.keystore app-release.apk Vishnu
+hellodon

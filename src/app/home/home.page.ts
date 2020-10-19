@@ -72,7 +72,7 @@ export class HomePage implements OnInit {
       console.log(isAnyRunning);
       if (isAnyRunning) {
         const toast = await this.toastCtr.create({
-          message: '<b>' + isAnyRunning.title + '</b> is still active. Please stop it to start a new one',
+          message: '<b>' + isAnyRunning.ActivityTitle + '</b> is still active. Please stop it to start a new one',
           duration: 2000
         });
         toast.present();
@@ -132,7 +132,8 @@ export class HomePage implements OnInit {
       data.StartTime = new Date().getTime();
       data.Latitude = data.verifyItems.location.data.coords.latitude;
       data.Longitude = data.verifyItems.location.data.coords.longitude;
-      this.dataService.setProjectStatus(data).then(() => {
+      this.dataService.setProjectStatus(data).then((timeID) => {
+        this.projectList[index].TimeSheetID = timeID;
         this.startTimer(index);
       } ,
       async () => {
