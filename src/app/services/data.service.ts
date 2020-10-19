@@ -9,7 +9,7 @@ import { Platform } from '@ionic/angular';
 })
 export class DataService {
 
-  baseUrl = 'https://86.96.196.61/tms/api/';
+  baseUrl = 'https://www.mattakkara.com/api/';
   defaultEmployeeCode = '16536';
 
   constructor(private http: HttpClient, private uniqueDeviceID: UniqueDeviceID,

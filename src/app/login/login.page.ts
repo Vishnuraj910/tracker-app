@@ -1,4 +1,3 @@
-import { PinDialog } from '@ionic-native/pin-dialog/ngx';
 import { Component } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
@@ -86,7 +85,7 @@ export class LoginPage {
       },
       async () => {
         await loading.dismiss();
-        alert('Please check your credentials');
+        alert('Please check your connection');
       }
     );
   }
