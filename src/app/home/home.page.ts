@@ -40,8 +40,8 @@ export class HomePage implements OnInit {
         this.projectList.forEach((item) => {
           item.status =  1;
           item.isActive = 1,
-          item.timeTaken = 0;
-          item.distance = this.dataService.findDistance(resp.coords.altitude, resp.coords.longitude, item.Latitude, item.Longitude, 'K');
+          item.timeTaken = parseInt(item.WorkedSeconds, 10);
+          item.distance = this.dataService.findDistance(resp.coords.latitude, resp.coords.longitude, item.Latitude, item.Longitude, 'K');
           item.timerRunning = false;
         });
         this.projectList.sort((a, b) => (a.distance > b.distance) ? 1 : ((b.distance > a.distance) ? -1 : 0));
@@ -81,9 +81,35 @@ export class HomePage implements OnInit {
       }
 
     } else {
-      clearInterval(this.timerObj);
+      this.isLoading = true;
+      this.geolocation.getCurrentPosition({timeout: 5000, enableHighAccuracy: true}).then((resp) => {
+
       this.projectList[index].timerRunning = false;
-      this.projectList[index].endTime = Date.now();
+      this.projectList[index].EndTime = new Date().getTime();
+      this.dataService.setProjectStatus({ currentProject : this.projectList[index],
+        EndTime: this.projectList[index].EndTime,
+        StartOrStop: 'Stop',
+        Latitude: resp.coords.latitude,
+        Longitude: resp.coords.longitude}).then(() => {
+          clearInterval(this.timerObj);
+          this.isLoading = false;
+      } ,
+      async () => {
+        const toast = await this.toastCtr.create({
+          message: 'Unable to start this project. Please try again.',
+          duration: 2000
+        });
+        toast.present();
+        this.isLoading = false;
+      });
+    }).catch(async (error) => {
+      const toast = await this.toastCtr.create({
+        message: 'Unable to fetch Location information. Loading all available projects',
+        duration: 2000
+      });
+      toast.present();
+      this.isLoading = false;
+    });
     }
 
 
@@ -101,8 +127,27 @@ export class HomePage implements OnInit {
     await modal.present();
     const { data } = await modal.onWillDismiss();
     console.log(data);
-    if (data.verified) {
-      this.startTimer(index);
+    if (data.verified) { // Send start status to Server
+      data.StartOrStop = 'Start';
+      data.StartTime = new Date().getTime();
+      data.Latitude = data.verifyItems.location.data.coords.latitude;
+      data.Longitude = data.verifyItems.location.data.coords.longitude;
+      this.dataService.setProjectStatus(data).then(() => {
+        this.startTimer(index);
+      } ,
+      async () => {
+        const toast = await this.toastCtr.create({
+          message: 'Unable to start this project. Please try again.',
+          duration: 2000
+        });
+        toast.present();
+      });
+    } else {
+      const toast = await this.toastCtr.create({
+        message: 'Please finish all the verifications to start the project',
+        duration: 2000
+      });
+      toast.present();
     }
   }
 

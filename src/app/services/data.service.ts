@@ -9,7 +9,7 @@ import { Platform } from '@ionic/angular';
 })
 export class DataService {
 
-  baseUrl = 'https://www.mattakkara.com/api/';
+  baseUrl = 'https://worktime.me/tms/api/';
   defaultEmployeeCode = '16536';
 
   constructor(private http: HttpClient, private uniqueDeviceID: UniqueDeviceID,
@@ -22,14 +22,29 @@ export class DataService {
       const userObj = this.authService.getUserDetails();
       // console.log(userObj);
 
-      this.http.get(`${this.baseUrl}Activity/Get?UserID=${userObj ? userObj.EmployeeCode : this.defaultEmployeeCode}${(coordinates ? '&latitude=' + coordinates.latitude + '&longitude=' + coordinates.longitude : '')}&searchString=${searchString}`)
+      this.http.get(`${this.baseUrl}Activity/Get?UserID=${userObj ? userObj.EmployeeCode : this.defaultEmployeeCode}${(coordinates ? '&Latitude=' + coordinates.latitude + '&Longitude=' + coordinates.longitude : '')}&searchString=${searchString}`)
         .subscribe((data) => {
           console.log(data);
           resolve(data);
         }, (err) => {
-          reject();
+          reject(err);
         });
   });
+}
+setProjectStatus(project): Promise <any> {
+  return new Promise( (resolve, reject) => {
+    const userObj = this.authService.getUserDetails();
+    // console.log(userObj);
+
+    this.http.get(`${this.baseUrl}Activity/Post?UserID=${userObj ? userObj.EmployeeCode : this.defaultEmployeeCode}&ActivityCode=${project.currentProject.ActivityCode}&TimeSheetID=${project.currentProject.TimeSheetID.length > 1 ? project.currentProject.TimeSheetID : '0'}&StartTime=${project.StartTime ? project.StartTime : ''}&EndTime=${project.EndTime ? project.EndTime : ''}&Latitude=${project.Latitude}&Longitude=${project.Longitude}&StartOrStop=${project.StartOrStop}`)
+      .subscribe((data) => {
+        console.log(data);
+        resolve(data);
+      }, (err) => {
+        resolve(err);
+        // reject(err);
+      });
+});
 }
 
   getList() {

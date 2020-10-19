@@ -74,12 +74,13 @@ export class VerifyPage implements OnInit {
     // can "dismiss" itself and optionally pass back data
     this.modalCtrl.dismiss({
       dismissed: true,
+      currentProject: this.project,
       verifyItems: this.verifyItems,
       verified: verify
     });
   }
   async checkIn() {
-    if (this.verifyItems.location.status == 1 && this.verifyItems.finger.status == 1) {
+    if (this.verifyItems.location.status === 1 && this.verifyItems.finger.status === 1) {
       this.dismiss(true);
     } else {
       const toast = await this.toastCtr.create({
@@ -92,7 +93,7 @@ export class VerifyPage implements OnInit {
 
   }
   fingerPrintAuth() {
-    if (this.platform.platforms().indexOf('mobileweb') != -1)
+    if (this.platform.platforms().indexOf('mobileweb') !== -1)
     {
       this.verifyItems.finger.status = 1;
       this.project.bioVerified = 1;
