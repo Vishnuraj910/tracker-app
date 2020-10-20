@@ -1,7 +1,6 @@
 import { AuthService } from './auth.service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
 import { Platform } from '@ionic/angular';
 
 @Injectable({
@@ -12,7 +11,7 @@ export class DataService {
   baseUrl = 'https://worktime.me/tms/api/';
   defaultEmployeeCode = '16536';
 
-  constructor(private http: HttpClient, private uniqueDeviceID: UniqueDeviceID,
+  constructor(private http: HttpClient,
               public platform: Platform, private authService: AuthService) {
     console.log('Called Data Service');
   }

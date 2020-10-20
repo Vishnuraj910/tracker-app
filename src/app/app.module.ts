@@ -11,7 +11,6 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
-import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 
 @NgModule({
@@ -23,7 +22,6 @@ import { NativeStorage } from '@ionic-native/native-storage/ngx';
     SplashScreen,
     Geolocation,
     FingerprintAIO,
-    UniqueDeviceID,
     NativeStorage,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

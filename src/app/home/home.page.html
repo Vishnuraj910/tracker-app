@@ -7,11 +7,12 @@
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
+  <ion-searchbar showCancelButton="focus" animated [(ngModel)]="searchString" (search)="searchList($event)" autocorrect="off"></ion-searchbar>
+
 </ion-header>
 
 <ion-content has-footer>
   <ion-progress-bar *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
-  <ion-searchbar showCancelButton="focus" animated [(ngModel)]="searchString" (search)="searchList($event)" autocorrect="off"></ion-searchbar>
 
 <ng-container *ngFor="let project of projectList; let i = index" >
   
@@ -51,23 +52,23 @@
 
 </ion-content>
 
-<ion-footer>
+<!-- <ion-footer>
   
   <ion-toolbar>
     <ion-tabs>
       <ion-tab-bar slot="bottom" >
         <ion-tab-button (click)="tabSelected(1)" selected="{{selectedTab == 1 ? 'true' : 'false'}}">
           <ion-icon name="list-outline"></ion-icon>
-          <ion-label>On Going</ion-label>
+          <ion-label>Pending</ion-label>
         </ion-tab-button>
     
         <ion-tab-button (click)="tabSelected(2)" selected="{{selectedTab == 2 ? 'true' : 'false'}}">
           <ion-icon name="checkbox-outline"></ion-icon>
-          <ion-label>Completed</ion-label>
+          <ion-label>Active</ion-label>
         </ion-tab-button>
     
        
       </ion-tab-bar>
     </ion-tabs>
   </ion-toolbar>
-    </ion-footer>
+    </ion-footer> -->
