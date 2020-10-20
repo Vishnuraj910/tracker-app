@@ -19,13 +19,13 @@
   </ion-row>
  
 </ion-card>
-<ion-card *ngIf="false"> <ion-row class="">
+<ion-card *ngIf="verifyItems.selfie.enabled"> <ion-row class="">
   <ion-col class="pad-15" size="2"><img src="assets/images/selfie.png" /></ion-col>
   <ion-col class="pad-20-0 text-black" size="8"> <ion-title>Selfie</ion-title></ion-col>
   <ion-col [class]="(verifyItems.selfie.status == 0) ? 'rotate pad-15' : 'pad-15'" size="2"><img [src]="(verifyItems.selfie.status == 0) ? 'assets/images/001-loading.png' : (verifyItems.selfie.status == 1 ? 'assets/images/002-success.png' : 'assets/images/003-delete-button.png')"  /></ion-col>
 </ion-row>
 </ion-card>
-<ion-card (click)="fingerPrintAuth()">
+<ion-card *ngIf="verifyItems.finger.enabled" (click)="fingerPrintAuth()">
   <ion-row class="">
     <ion-col class="pad-15" size="2"><img src="assets/images/003-fingerprint.png" /></ion-col>
     <ion-col class="pad-20-0 text-black" size="8"> <ion-title>Fingerprint</ion-title></ion-col>

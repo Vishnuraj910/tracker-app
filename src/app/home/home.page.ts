@@ -37,12 +37,18 @@ export class HomePage implements OnInit {
     this.geolocation.getCurrentPosition({timeout: 5000, enableHighAccuracy: true}).then((resp) => {
       this.dataService.getProjects(resp.coords, this.searchString).then((data) => {
         this.projectList = data;
-        this.projectList.forEach((item) => {
+        this.projectList.forEach((item, index) => {
           item.status =  1;
-          item.isActive = 1,
-          item.timeTaken = parseInt(item.WorkedSeconds, 10);
+          item.isActive = 1;
+          if (item.WorkStartTime.length !== 0 && item.WorkEndTime.length === 0) {
+            // item.timerRunning = true;
+            item.timeTaken = (Date.now() - parseInt(item.WorkStartTime, 10)) / 1000000;
+            this.startTimer(index);
+          } else {
+            item.timeTaken = parseInt(item.WorkedSeconds, 10);
+            item.timerRunning = false;
+          }
           item.distance = this.dataService.findDistance(resp.coords.latitude, resp.coords.longitude, item.Latitude, item.Longitude, 'K');
-          item.timerRunning = false;
         });
         this.projectList.sort((a, b) => (a.distance > b.distance) ? 1 : ((b.distance > a.distance) ? -1 : 0));
         this.isLoading = false;
@@ -154,7 +160,7 @@ export class HomePage implements OnInit {
 
   formatTime(currentTimer) {
     if (currentTimer >= 86400) {
-      return new Date(87000 * 1000).toISOString().substr(8, 2) + ':' + new Date(currentTimer * 1000).toISOString().substr(11, 8);
+      return new Date(87000 * 1000).toISOString().substr(8, 2) + 'D ' + new Date(currentTimer * 1000).toISOString().substr(11, 8);
     } else {
       return new Date(currentTimer * 1000).toISOString().substr(11, 8);
     }

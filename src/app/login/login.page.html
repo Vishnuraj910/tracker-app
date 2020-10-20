@@ -1,21 +1,21 @@
 <ion-content [fullscreen]="true" color="bright" class="background">
 
-
   <div id="container">
-    <ion-img class="logo" src="assets/images/logo.png"></ion-img>
+    <ion-img class="logo" src="assets/images/logo-blue.png"></ion-img>
 
     <ion-label class="heading">Welcome</ion-label>
     <ion-label class="sub-text item-pad">Enter password or use Face ID to continue</ion-label>
+    <form (submit)="login()">
 
-  
-    <ion-label class="sub-text text-label item-pad" >Username</ion-label>
-    <ion-input  class="text-input" type="text" [(ngModel)]="loginObj.username"></ion-input>
-    
-   
+      <ion-label class="sub-text text-label item-pad">Username</ion-label>
+      <ion-input class="text-input" type="text" name="username" [(ngModel)]="loginObj.username"></ion-input>
+
       <ion-label class="sub-text text-label item-pad">Password</ion-label>
-      <ion-input class="text-input" type="password" [(ngModel)]="loginObj.password"></ion-input>
+      <ion-input class="text-input" type="password" name="password" [(ngModel)]="loginObj.password"></ion-input>
 
       <ion-button expand="block" class="item-mar" (click)="login()" color="tertiary"><b>Login</b></ion-button>
-      <ion-label class="sub-text item-pad text-cen">Don't have an account? <a href="mailto:vishnuraj910@gmail.com?subject=Register with Tracker App"><b> Sign-up </b></a></ion-label>
+      <ion-label class="sub-text item-pad text-cen">Don't have an account? <a
+          href="mailto:vishnuraj910@gmail.com?subject=Register with Tracker App"><b> Sign-up </b></a></ion-label>
+    </form>
   </div>
 </ion-content>

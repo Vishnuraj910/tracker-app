@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
-import { ModalController, Platform } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
 import { ToastController } from '@ionic/angular';
 @Component({
@@ -16,32 +16,37 @@ export class VerifyPage implements OnInit {
   verifyItems = {
     location: {
       status: 0,
-      data: null
+      data: null,
+      enabled: true
     },
     selfie: {
       status: 0,
-      data: null
+      data: null,
+      enabled: false
     },
     finger: {
       status: 0,
-      data: null
+      data: null,
+      enabled: false
     },
-    remarks: null
+    remarks: null,
+    enabled: true
   };
 
 
   constructor(private geolocation: Geolocation,
               private modalCtrl: ModalController,
               private faio: FingerprintAIO,
-              private toastCtr: ToastController,
-              public platform: Platform) { }
+              private toastCtr: ToastController)
+              { }
 
   ngOnInit() {
 
     this.getLocation();
     console.log(this.project);
-    console.log(this.platform.platforms());
-
+    this.faio.isAvailable().then(() => {
+      this.verifyItems.finger.enabled = true;
+    }, () => {});
   }
   getLocation() {
     // if (this.verifyItems.location.status != 1){
@@ -93,7 +98,8 @@ export class VerifyPage implements OnInit {
 
   }
   fingerPrintAuth() {
-    if (this.platform.platforms().indexOf('mobileweb') !== -1)
+
+    if (!this.verifyItems.finger.enabled)
     {
       this.verifyItems.finger.status = 1;
       this.project.bioVerified = 1;
@@ -118,10 +124,7 @@ export class VerifyPage implements OnInit {
           });
           toast.present();
         });
-
-    }
-
-
+      }
   }
 
 }
