@@ -7,44 +7,55 @@
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
-  <ion-searchbar showCancelButton="focus" animated [(ngModel)]="searchString" (search)="searchList($event)" autocorrect="off"></ion-searchbar>
+  <ion-searchbar showCancelButton="focus" animated [(ngModel)]="searchString" (search)="searchList($event)"
+    autocorrect="off"></ion-searchbar>
 
 </ion-header>
 
 <ion-content has-footer>
   <ion-progress-bar *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
 
-<ng-container *ngFor="let project of projectList; let i = index" >
-  
-  <ion-card *ngIf="project.isActive && project.status == selectedTab">
-    <ion-card-header>
-      <ion-card-title> <ion-row>
-      <ion-col size="{{project.timeTaken >= 86400 ? '7' : '8'}}">{{project.ActivityTitle}}</ion-col>
-      <ion-col size="{{project.timeTaken >= 86400 ? '5' : '4'}}" >  <div class="dis-flex f-right {{project.timeTaken >= 86400 ? 'f-right' : ''}}"><ion-badge color="{{project.timerRunning ? 'success' : 'warning'}}">{{ formatTime(project.timeTaken)}}</ion-badge></div></ion-col>
-      </ion-row></ion-card-title>
+  <ng-container *ngFor="let project of projectList; let i = index">
 
-      
-     
-    </ion-card-header>
+    <ion-card *ngIf="project.isActive && project.status == selectedTab">
+      <ion-card-header>
+        <ion-card-title>
+          <ion-row>
+            <ion-col size="{{project.timeTaken >= 86400 ? '7' : '8'}}">{{project.ActivityTitle}}</ion-col>
+            <ion-col size="{{project.timeTaken >= 86400 ? '5' : '4'}}">
+              <div class="dis-flex f-right {{project.timeTaken >= 86400 ? 'f-right' : ''}}">
+                <ion-badge color="{{project.timerRunning ? 'success' : 'warning'}}">{{ formatTime(project.timeTaken)}}
+                </ion-badge>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-card-title>
 
-    <ion-card-content>
-      <ion-row>
-        <ion-col class="sub-text" size="9">{{project.ActivityName}}</ion-col>
-        <ion-col size="3">
-          <!-- <div class="btn-ctr" (click)="presentModal(i)"><img [src]="project.timerRunning ? 'assets/images/001-stop-player-button.png': 'assets/images/001-power-button.png'" /> -->
-          <div class="btn-ctr" (click)="startProject(i)"><img [src]="project.status == 2 ? 'assets/images/002-success.png' : project.timerRunning ? 'assets/images/001-stop-player-button.png': 'assets/images/001-power-button.png'" />
+
+
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-row>
+          <ion-col class="sub-text" size="9">{{project.ActivityName}}</ion-col>
+          <ion-col size="3">
+            <!-- <div class="btn-ctr" (click)="project.status == 2 ? '' : startProject(i)"><img [src]="project.status == 2 ? 'assets/images/002-success.png' : project.timerRunning ? 'assets/images/001-stop-player-button.png': 'assets/images/001-power-button.png'" />
             <ion-label class="text-cen">{{project.status == 2 ? 'Completed' : project.timerRunning ? 'Stop': 'Start'}}</ion-label>
-          </div>
-        </ion-col>
-      </ion-row>
+          </div> -->
+            <div class="btn-ctr" (click)="startProject(i)"><img
+                [src]="project.timerRunning ? 'assets/images/001-stop-player-button.png': 'assets/images/001-power-button.png'" />
+              <ion-label class="text-cen">{{project.timerRunning ? 'Stop': 'Start'}}</ion-label>
+            </div>
+          </ion-col>
+        </ion-row>
 
-      <ion-card-subtitle>{{project.distance | number : '1.2-2'}} Kms</ion-card-subtitle>
-    </ion-card-content>
+        <ion-card-subtitle>{{project.distance | number : '1.2-2'}} Kms</ion-card-subtitle>
+      </ion-card-content>
 
-  </ion-card>
+    </ion-card>
 
 
-</ng-container>
+  </ng-container>
 
 
 
@@ -52,23 +63,23 @@
 
 </ion-content>
 
-<!-- <ion-footer>
-  
+<ion-footer>
+
   <ion-toolbar>
     <ion-tabs>
-      <ion-tab-bar slot="bottom" >
+      <ion-tab-bar slot="bottom">
         <ion-tab-button (click)="tabSelected(1)" selected="{{selectedTab == 1 ? 'true' : 'false'}}">
-          <ion-icon name="list-outline"></ion-icon>
-          <ion-label>Pending</ion-label>
-        </ion-tab-button>
-    
-        <ion-tab-button (click)="tabSelected(2)" selected="{{selectedTab == 2 ? 'true' : 'false'}}">
-          <ion-icon name="checkbox-outline"></ion-icon>
+          <ion-icon name="reader"></ion-icon>
           <ion-label>Active</ion-label>
         </ion-tab-button>
-    
-       
+
+        <ion-tab-button (click)="tabSelected(2)" selected="{{selectedTab == 2 ? 'true' : 'false'}}">
+          <ion-icon name="checkmark-done-circle"></ion-icon>
+          <ion-label>History</ion-label>
+        </ion-tab-button>
+
+
       </ion-tab-bar>
     </ion-tabs>
   </ion-toolbar>
-    </ion-footer> -->
+</ion-footer>

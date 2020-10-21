@@ -50,9 +50,12 @@ export class HomePage implements OnInit {
           item.timeTaken = parseInt(item.WorkedSeconds, 10);
           if (item.WorkStartTime.length !== 0 && item.WorkEndTime.length === 0) {
             this.startTimer(index);
-            // this.projectList[index].status = 2;
+            this.projectList[index].status = 1;
+          } else if (item.WorkStartTime.length !== 0 && item.WorkEndTime.length !== 0){
+            this.projectList[index].status = 2;
+            item.timerRunning = false;
           } else {
-            // this.projectList[index].status = 1;
+            this.projectList[index].status = 1;
             item.timerRunning = false;
           }
         });
@@ -78,7 +81,8 @@ export class HomePage implements OnInit {
 
   async startProject(index) {
 
-    if (this.projectList[index].status === 1 && !this.projectList[index].timerRunning) {
+    if (!this.projectList[index].timerRunning) {
+      this.projectList[index].status = 1;
       const isAnyRunning = this.projectList.find(item => item.timerRunning);
       console.log(isAnyRunning);
       if (isAnyRunning) {
