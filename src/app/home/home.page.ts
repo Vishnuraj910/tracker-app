@@ -38,8 +38,15 @@ export class HomePage implements OnInit {
       this.dataService.getProjects(resp.coords, this.searchString).then((data) => {
         this.projectList = data;
         this.projectList.forEach((item, index) => {
+        item.distance = this.dataService.findDistance(resp.coords.latitude, resp.coords.longitude, item.Latitude, item.Longitude, 'K');
+        });
+        this.projectList.sort((a, b) => (a.distance > b.distance) ? 1 : ((b.distance > a.distance) ? -1 : 0));
+        this.projectList.forEach((item, index) => {
           item.status =  1;
           item.isActive = 1;
+          if (item.WorkedSeconds.length === 0) {
+            item.WorkedSeconds = 0;
+          }
           item.timeTaken = parseInt(item.WorkedSeconds, 10);
           if (item.WorkStartTime.length !== 0 && item.WorkEndTime.length === 0) {
             this.startTimer(index);
@@ -48,9 +55,7 @@ export class HomePage implements OnInit {
             // this.projectList[index].status = 1;
             item.timerRunning = false;
           }
-          item.distance = this.dataService.findDistance(resp.coords.latitude, resp.coords.longitude, item.Latitude, item.Longitude, 'K');
         });
-        this.projectList.sort((a, b) => (a.distance > b.distance) ? 1 : ((b.distance > a.distance) ? -1 : 0));
         this.isLoading = false;
       }, async () => {
         const toast = await this.toastCtr.create({

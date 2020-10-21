@@ -12,14 +12,14 @@ import { AlertController } from '@ionic/angular';
 })
 export class LoginPage {
 
-  loginObj = {
-    username: '',
-    password: '',
-  };
   // loginObj = {
-  //   username: '16536',
-  //   password: '16536',
+  //   username: '',
+  //   password: '',
   // };
+  loginObj = {
+    username: '16536',
+    password: '16536',
+  };
 
   constructor(
     private authService: AuthService,

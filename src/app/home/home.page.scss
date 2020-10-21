@@ -13,8 +13,9 @@ ion-card-subtitle {
     }
 }
 ion-badge{
-    margin: 0 auto;
+    margin: 0 0;
     font-size: 16px;
+    color: white!important;
 }
 
 ion-card-header.ios, ion-card-content.ios {
@@ -22,7 +23,8 @@ ion-card-header.ios, ion-card-content.ios {
     padding-inline-end: 10px;
 }
 ion-badge{
-    font-size: 14px;
+    font-size: 20px;
+    min-width: 85px;
 }
 ion-card-title.ios{
     font-size: 23px;;
