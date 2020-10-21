@@ -14,7 +14,17 @@
 
 <ion-content has-footer>
   <ion-progress-bar *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
+  <ion-refresher slot="fixed" (ionRefresh)="ngOnInit($event)">
+    <ion-refresher-content pullingText="Pull to refresh"></ion-refresher-content>
+  </ion-refresher>
+  <ion-text *ngIf="!isLoading && !projectList.length">
+  <!-- <ion-text class="text-cen"> -->
+    <h3>
+      No active projects to show. Please refresh.
 
+    </h3>
+  
+  </ion-text>
   <ng-container *ngFor="let project of projectList; let i = index">
 
     <ion-card *ngIf="project.isActive && project.status == selectedTab">
@@ -24,7 +34,7 @@
             <ion-col size="{{project.timeTaken >= 86400 ? '7' : '8'}}">{{project.ActivityTitle}}</ion-col>
             <ion-col size="{{project.timeTaken >= 86400 ? '5' : '4'}}">
               <div class="dis-flex f-right {{project.timeTaken >= 86400 ? 'f-right' : ''}}">
-                <ion-badge color="{{project.timerRunning ? 'success' : 'warning'}}">{{ formatTime(project.timeTaken)}}
+                <ion-badge color="{{project.status == 1 ? 'success' : 'warning'}}">{{ formatTime(project.timeTaken)}}
                 </ion-badge>
               </div>
             </ion-col>
@@ -54,8 +64,8 @@
 
     </ion-card>
 
-
   </ng-container>
+
 
 
 

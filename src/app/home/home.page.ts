@@ -30,9 +30,12 @@ export class HomePage implements OnInit {
               private geolocation: Geolocation,
               public alertController: AlertController) { }
 
-  ngOnInit() {
-    this.timerObj = new Date();
+  ngOnInit(event = null) {
+    // this.timerObj = new Date();
     this.isLoading = true;
+    // if (event !== null) {
+    //   clearInterval(this.timerObj);
+    // }
     // this.projectList = this.dataService.getList();
     this.geolocation.getCurrentPosition({timeout: 5000, enableHighAccuracy: true}).then((resp) => {
       this.dataService.getProjects(resp.coords, this.searchString).then((data) => {
@@ -60,6 +63,12 @@ export class HomePage implements OnInit {
           }
         });
         this.isLoading = false;
+        if (event !== null) {
+        setTimeout(() => {
+          console.log('Async operation has ended');
+          event.target.complete();
+        }, 1000);
+      }
       }, async () => {
         const toast = await this.toastCtr.create({
           message: 'Unable to fetch projects!',
@@ -185,7 +194,10 @@ export class HomePage implements OnInit {
     const self = this;
     this.projectList[index].timerRunning = true;
     this.projectList[index].startTime ? this.projectList[index].startTime : Date.now();
+    // this.timerObj = null;
+    clearInterval(this.timerObj);
     this.timerObj = setInterval(() => {
+      // console.log('Timer');
       self.projectList[index].timeTaken = Number(self.projectList[index].timeTaken) + 1;
     }, 1000);
   }
@@ -202,7 +214,6 @@ export class HomePage implements OnInit {
   }
 
   getLocation() {
-    // if (this.verifyItems.location.status != 1){
     this.geolocation.getCurrentPosition({timeout: 5000, enableHighAccuracy: true}).then((resp) => {
       console.log(resp);
       this.verifyItems.location.status = 1;
@@ -216,13 +227,6 @@ export class HomePage implements OnInit {
       toast.present();
       console.log('Error getting location', error);
     });
-    // } else {
-    //   this.toast = this.toastCtr.create({
-    //     message: 'Location already captured.',
-    //     duration: 2000
-    //   });
-    //   this.toast.present();
-    // }
 
   }
 
@@ -254,35 +258,5 @@ export class HomePage implements OnInit {
   searchList(evnt){
     this.ngOnInit();
   }
-
-  // startTimer(timeObj){
-  //   var self = this;
-  //   let countDownDate = new Date().getTime();
-  //      // Update the count down every 1 second
-  //      let x = setInterval(function () {
-
-  //       // Get todays date and time
-  //       let now = new Date().getTime();
-
-  //       // Find the distance between now and the count down date
-  //       let distance = now - countDownDate;
-  //       // Time calculations for days, hours, minutes and seconds
-  //       let days = Math.floor(distance / (1000 * 60 * 60 * 24));
-  //       let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  //       let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-  //       let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-  //       console.log(timeObj);
-
-  //       // Output the result in an element with id="demo"
-  //       timeObj = hours + " : "
-  //         + minutes + " : " + seconds ;
-
-  //       // If the count down is over, write some text
-  //       if (distance < 0) {
-  //         clearInterval(x);
-  //         timeObj = "EXPIRED";
-  //       }
-  //     }, 1000);
-  // }
 
 }
