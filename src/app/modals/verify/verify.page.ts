@@ -29,8 +29,10 @@ export class VerifyPage implements OnInit {
       data: null,
       enabled: false
     },
-    remarks: null,
-    enabled: true
+    remarks: {
+      text : null,
+      enabled: true
+    }
   };
 
 

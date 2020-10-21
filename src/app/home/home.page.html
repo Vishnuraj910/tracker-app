@@ -17,7 +17,7 @@
   <ion-refresher slot="fixed" (ionRefresh)="ngOnInit($event)">
     <ion-refresher-content pullingText="Pull to refresh"></ion-refresher-content>
   </ion-refresher>
-  <ion-text *ngIf="!isLoading && !projectList.length">
+  <ion-text class="text-cen" *ngIf="!isLoading && !projectList.length">
   <!-- <ion-text class="text-cen"> -->
     <h3>
       No active projects to show. Please refresh.
@@ -33,7 +33,7 @@
           <ion-row>
             <ion-col size="{{project.timeTaken >= 86400 ? '7' : '8'}}">{{project.ActivityTitle}}</ion-col>
             <ion-col size="{{project.timeTaken >= 86400 ? '5' : '4'}}">
-              <div class="dis-flex f-right {{project.timeTaken >= 86400 ? 'f-right' : ''}}">
+              <div *ngIf="project.timeTaken > 0" class="dis-flex f-right {{project.timeTaken >= 86400 ? 'f-right' : ''}}">
                 <ion-badge color="{{project.status == 1 ? 'success' : 'warning'}}">{{ formatTime(project.timeTaken)}}
                 </ion-badge>
               </div>

@@ -57,6 +57,7 @@ export class HomePage implements OnInit {
           } else if (item.WorkStartTime.length !== 0 && item.WorkEndTime.length !== 0){
             this.projectList[index].status = 2;
             item.timerRunning = false;
+            item.timeTaken = parseInt(item.WorkEndTime, 10) - parseInt(item.WorkStartTime, 10);
           } else {
             this.projectList[index].status = 1;
             item.timerRunning = false;
@@ -107,24 +108,26 @@ export class HomePage implements OnInit {
     } else {
       this.isLoading = true;
       // this.projectList[index].status = 2;
-      this.geolocation.getCurrentPosition({timeout: 5000, enableHighAccuracy: true}).then((resp) => {
-
       this.projectList[index].timerRunning = false;
       this.projectList[index].EndTime = new Date().getTime();
+      clearInterval(this.timerObj);
+      this.geolocation.getCurrentPosition({timeout: 5000, enableHighAccuracy: true}).then((resp) => {
       this.dataService.setProjectStatus({ currentProject : this.projectList[index],
         EndTime: this.projectList[index].EndTime,
         StartOrStop: 'Stop',
         Latitude: resp.coords.latitude,
-        Longitude: resp.coords.longitude}).then(() => {
-          clearInterval(this.timerObj);
+        Longitude: resp.coords.longitude,
+        Remarks : ''}).then(() => {
           this.isLoading = false;
+          this.projectList[index].status = 2;
       } ,
       async () => {
         const toast = await this.toastCtr.create({
-          message: 'Unable to start this project. Please try again.',
+          message: 'Unable to stop this project right now. Please try again.',
           duration: 2000
         });
         toast.present();
+        this.startTimer(index);
         this.isLoading = false;
       });
     }).catch(async (error) => {
@@ -157,15 +160,17 @@ export class HomePage implements OnInit {
       data.StartTime = new Date().getTime();
       data.Latitude = data.verifyItems.location.data.coords.latitude;
       data.Longitude = data.verifyItems.location.data.coords.longitude;
+      data.Remarks = data.verifyItems.remarks.text;
+      this.startTimer(index);
       this.dataService.setProjectStatus(data).then((timeID) => {
         this.projectList[index].TimeSheetID = timeID;
-        this.startTimer(index);
       } ,
       async () => {
         const toast = await this.toastCtr.create({
           message: 'Unable to start this project. Please try again.',
           duration: 2000
         });
+        this.projectList[index].EndTime = new Date().getTime();
         toast.present();
       });
     } else {

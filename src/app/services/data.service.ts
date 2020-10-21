@@ -35,7 +35,7 @@ setProjectStatus(project): Promise <any> {
     const userObj = this.authService.getUserDetails();
     // console.log(userObj);
 
-    this.http.get(`${this.baseUrl}Activity/Post?UserID=${userObj ? userObj.EmployeeCode : this.defaultEmployeeCode}&ActivityCode=${project.currentProject.ActivityCode}&TimeSheetID=${project.currentProject.TimeSheetID.length > 1 ? project.currentProject.TimeSheetID : '0'}&StartTime=${project.StartTime ? project.StartTime : ''}&EndTime=${project.EndTime ? project.EndTime : ''}&Latitude=${project.Latitude}&Longitude=${project.Longitude}&StartOrStop=${project.StartOrStop}`)
+    this.http.get(`${this.baseUrl}Activity/Post?UserID=${userObj ? userObj.EmployeeCode : this.defaultEmployeeCode}&ActivityCode=${project.currentProject.ActivityCode}&TimeSheetID=${project.currentProject.TimeSheetID.length > 1 ? project.currentProject.TimeSheetID : '0'}&StartTime=${project.StartTime ? project.StartTime : ''}&EndTime=${project.EndTime ? project.EndTime : ''}&Latitude=${project.Latitude}&Longitude=${project.Longitude}&StartOrStop=${project.StartOrStop}&Remarks=${project.Remarks}`)
       .subscribe((data) => {
         console.log(data);
         resolve(data);
