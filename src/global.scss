@@ -134,8 +134,13 @@ ion-header.header-md ion-toolbar:first-child {
   }
 
   .my-header{
-    --background: none;
-    background: url(/assets/images/design-rotated.png);
+    // --background: none;
+    // background: url(/assets/images/design-rotated.png);
+    // background-size: 30%;
+    // background-repeat: no-repeat;
+    // background-position: 100% 62%;
+    --background: #1A3767;
+    color: white;
     background-size: 30%;
     background-repeat: no-repeat;
     background-position: 100% 62%;
