@@ -57,7 +57,14 @@
               <ion-label class="text-cen">{{project.timerRunning ? 'Stop': 'Start'}}</ion-label>
             </div>
           </ion-col>
+          
         </ion-row>
+        <!-- <ion-row>
+          <ion-col [innerHTML]="timeStamp2Date(project.WorkStartTime, true)"></ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col [innerHTML]="timeStamp2Date(project.WorkEndTime, false)"></ion-col>
+        </ion-row> -->
 
         <ion-card-subtitle>{{project.distance | number : '1.2-2'}} Kms</ion-card-subtitle>
       </ion-card-content>

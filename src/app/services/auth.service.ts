@@ -35,7 +35,7 @@ export class AuthService {
       if (creds.username.trim().length && creds.password.trim().length)
       {
         this.http
-        .get(`${this.baseUrl}Auth/Authenticate?UserID=${creds.username.trim()}&Password=${creds.username.trim()}&DeviceID=${uuid}`,
+        .get(`${this.baseUrl}Auth/Authenticate?UserID=${creds.username.trim()}&Password=${creds.password.trim()}&DeviceID=${uuid}`,
         )
         .subscribe((data) => {
           console.log(data);
